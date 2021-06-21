@@ -60,8 +60,8 @@ stages {
               sh "git checkout ${env.GIT_REPO_BRANCH}"
 	      sh "cd ./package && cat dummy.yaml | yq w - image.repository "${env.IMAGE_REPO}"  |  yq w - image.tag "${env.GIT_COMMIT}" "
 	      sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
-		}
-          }
+	     }
+                                 }
         }
       }
     }
