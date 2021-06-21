@@ -41,7 +41,7 @@ stages {
       }
     }
   }
-  stage('update image name in repo ) {
+  stage('update image name in repo') {
       environment {
         GIT_CREDS = credentials('github')
         GIT_REPO_URL = "github.com/hemanthreddy44/rsvpapp-helm-cicd.git"
@@ -65,4 +65,4 @@ stages {
   
  }
 }
-}
+
