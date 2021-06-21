@@ -64,6 +64,8 @@ spec:
               sh "tar xvf yq_linux_amd64.tar.gz"
               sh "mv yq_linux_amd64 /usr/bin/yq"
               sh "cd ./package && cat dummy.yaml | yq w - image.repository ${env.IMAGE_REPO}  |  yq w - image.tag ${env.GIT_COMMIT} "
+              sh "cd ./package && sh yq eval '.image.repo |= "frogtag"'  -i dummy.yaml "
+              sh "yq eval '.image.tag |= "frogtag"'  -i dummy.yaml"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
           }
         }
