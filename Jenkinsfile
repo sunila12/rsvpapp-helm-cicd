@@ -24,7 +24,7 @@ spec:
       }
   }
 environment {
-    IMAGE_REPO = "hemanthhr/rsvpapp"
+    IMAGE_REPO = "hemanthhr/rsvpappnew"
     // Instead of nkhare, use your dockerhub username
 }
 stages {
