@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/hemanthhr/rsvpapp 
+  repository: docker.io/hemanthhr/rsvpappnew
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "8ef0d6f03c3cadcba981890e46a57abd7204fd8d"
+  tag: "2d37b78157459d068c593b56b80d608ffc732d7b"
 
 imagePullSecrets: []
 nameOverride: ""
