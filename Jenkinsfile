@@ -66,7 +66,8 @@ spec:
               sh "cd ./package" 
               sh "ls -lth"
               sh "yq --version"
-              sh "yq eval '.image.tag =${env.IMAGE_REPO} | .image.repository=${env.GIT_COMMIT}' -i dummy.yaml"
+              sh "cd package && yq eval '.image.tag =${env.IMAGE_REPO} | .image.repository=${env.GIT_COMMIT}' -i dummy.yaml"
+              sh "ls-lth"
               sh "yq --version"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
           }
