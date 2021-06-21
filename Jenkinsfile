@@ -60,7 +60,7 @@ spec:
             sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
           dir("rsvpapp-helm-cicd") {
               sh "git checkout ${env.GIT_REPO_BRANCH}"
-              sh "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64
+              sh "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CC86BB64"
               sh "sudo add-apt-repository ppa:rmescandon/yq"
               sh "sudo apt update"
               sh "sudo apt install yq -y"
