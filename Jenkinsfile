@@ -65,6 +65,7 @@ spec:
               sh "mv yq_linux_amd64 /usr/bin/yq"
               sh "cd ./package" 
               sh "yq --version"
+              sh "yq e '.image.repo |="frong"' -i dummy.yaml"
               sh "yq e '.image.repo |= "frogtag"' -i dummy.yaml"
               sh "yq e '.image.tag |= "frogtag"' -i dummy.yaml"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
