@@ -41,5 +41,27 @@ stages {
       }
     }
   }
+  stage('update image name in repo ) {
+      environment {
+        GIT_CREDS = credentials('github')
+        GIT_REPO_URL = "github.com/hemanthreddy44/rsvpapp-helm-cicd.git"
+        GIT_REPO_EMAIL = 'hemanth@cloudyuga.guru'
+        GIT_REPO_BRANCH = "master"
+       // Update above variables with your user details
+      }
+      steps {
+        container('tools') {
+            sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@${env.GIT_REPO_URL}"
+            sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
+          dir("rsvpapp-helm-cicd") {
+              sh "git checkout ${env.GIT_REPO_BRANCH}"
+	          sh "cd ./package && cat values.yaml | yq w - image.repository "${env.IMAGE_REPO}"  |  yq w - image.tag "${env.GIT_COMMIT}" "
+	          sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
+          }
+        }
+      }
+    }
+  
+  
  }
 }
