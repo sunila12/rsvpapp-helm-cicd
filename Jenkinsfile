@@ -66,7 +66,6 @@ spec:
               sh "cd ./package" 
               sh "yq eval '.image.tag =${env.GIT_REPO_URL} | .image.repository=${env.GIT_REPO_URL}' dummy.yaml"
               sh "yq --version"
-              sh "yq eval '.image.tag |= "frogtman"' -i dummy.yaml"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
           }
         }
