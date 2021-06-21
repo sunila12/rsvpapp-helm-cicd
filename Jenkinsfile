@@ -29,7 +29,7 @@ spec:
         }
     }
   environment {
-      IMAGE_REPO = "hemanth/rsvpdummy"
+      IMAGE_REPO = "hemanthhr/rsvpdummy"
       // Instead of nkhare, use your repo name
   }
   stages {
