@@ -1,9 +1,9 @@
 pipeline {
-  agent {
-    kubernetes  {
-          label 'jenkins-slave'
-          defaultContainer 'jnlp'
-    yaml """
+    agent {
+      kubernetes  {
+            label 'jenkins-slave'
+             defaultContainer 'jnlp'
+      yaml """
 apiVersion: v1
 kind: Pod
 spec:
@@ -20,31 +20,36 @@ spec:
     command:
     - cat
     tty: true
+  - name: tools
+    image: argoproj/argo-cd-ci-builder:v1.0.0
+    command:
+    - cat
+    tty: true
 """
-      }
-  }
-environment {
-    IMAGE_REPO = "hemanthhr/rsvpappnew"
-    // Instead of nkhare, use your dockerhub username
-}
-stages {
-  stage('Build') {
-    environment {
-      DOCKERHUB_CREDS = credentials('dockerhub')
+        }
     }
-    steps {
-      container('docker') {
-        // Build new image
-        sh "until docker container ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
-        // Publish new image
-        sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
+  environment {
+      IMAGE_REPO = "hemanth/rsvpdummy"
+      // Instead of nkhare, use your repo name
+  }
+  stages {
+    stage('Build') {
+      environment {
+        DOCKERHUB_CREDS = credentials('dockerhub')
+      }
+      steps {
+        container('docker') {
+          // Build new image
+          sh "until docker image ls; do sleep 3; done && docker image build -t  ${env.IMAGE_REPO}:${env.GIT_COMMIT} ."
+          // Publish new image
+          sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW && docker image push ${env.IMAGE_REPO}:${env.GIT_COMMIT}"
+        }
       }
     }
-  }
-  stage('update image name in repo') {
+    stage('Deploy to staging') {
       environment {
         GIT_CREDS = credentials('github')
-        GIT_REPO_URL = "github.com/hemanthreddy44/rsvpapp-helm-cicd.git"
+        GIT_REPO_URL = "github.com/hemanth344/rsvpapp-helm-cicd.git"
         GIT_REPO_EMAIL = 'hemanth@cloudyuga.guru'
         GIT_REPO_BRANCH = "master"
        // Update above variables with your user details
@@ -53,16 +58,14 @@ stages {
         container('tools') {
             sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@${env.GIT_REPO_URL}"
             sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
-	    sh "git checkout ${env.GIT_REPO_BRANCH}"
-	steps{
-	    sh "cd ./package && cat dummy.yaml | yq w - image.repository "${env.IMAGE_REPO}"  |  yq w - image.tag "${env.GIT_COMMIT}" "
-	    sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
-	     }
-	}
-                                 }
+          dir("rsvpapp-helm-cicd") {
+              sh "git checkout ${env.GIT_REPO_BRANCH}"
+              sh "cd ./package && cat dummy.yaml | yq w - image.repository ${env.IMAGE_REPO}  |  yq w - image.tag ${env.GIT_COMMIT} "
+            sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
+          }
         }
       }
-    }
-  
- 
+    }   
+  }
+}
 
