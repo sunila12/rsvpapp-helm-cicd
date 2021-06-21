@@ -63,7 +63,7 @@ spec:
               sh "wget https://github.com/mikefarah/yq/releases/download/v4.9.6/yq_linux_amd64.tar.gz"
               sh "tar xvf yq_linux_amd64.tar.gz"
               sh "mv yq_linux_amd64 /usr/bin/yq"
-              sh "cat input.yml | yq -y .foo.bar"
+              sh "cat input.yml | yq e '.image.repo |= "frogtag"' -i dummy.yaml"
               sh "cd ./package && yq e '.image.repo |="frong"' -i dummy.yaml"
               sh "cd ./package" 
               sh "yq --version"
