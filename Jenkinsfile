@@ -67,7 +67,7 @@ spec:
               sh "ls -lth"
               sh "yq --version"
               steps{
-              sh "cd package && yq e '.image."repository"="${env.IMAGE_REPO}"'| yq e '.image."tag"="${env.GIT_COMMIT}"' dummy.yaml -i dummy.yaml"
+              sh "cd package && yq eval '.image."tag"="${env.IMAGE_REPO}"' -i dummy.yaml"
               sh "cat dummy.yaml"
               sh "ls-lth"
               }
