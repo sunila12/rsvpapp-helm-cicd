@@ -66,7 +66,7 @@ spec:
               sh "cd ./package" 
               sh "yq --version"
               steps{   
-              sh "cd package && yq eval bool_value=true '.image.repository ="${env.IMAGE_REPO}"'| .image.tag= "${env.GIT_COMMIT}"' -i dummy.yaml"
+              sh "cd package && yq eval bool_value=true [0]'.image.repository ="${env.IMAGE_REPO}"'| .image.tag= "${env.GIT_COMMIT}"' -i dummy.yaml"
               sh "cat dummy.yaml"
               }
               }
