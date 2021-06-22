@@ -62,7 +62,7 @@ spec:
               //}
             // sh "yq --version"
            //sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
-          }
+          //}
         }
       }
     }   
