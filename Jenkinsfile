@@ -54,7 +54,7 @@ spec:
             sh "yq --version"
             sh '''#!/bin/bash
               yq eval '.image.repository = "${env.GIT_REPO_EMAIL}"' rsvpapp-helm-cicd/package/values.yaml
-              yq eval '.image.repository =docker.io/${env.IMAGE_REPO}| .image.tag= ${env.GIT_COMMIT}' -i rsvpapp-helm-cicd/package/dummy.yaml
+              yq eval '.image.repository ="${env.IMAGE_REPO}|"' .image.tag= "${env.GIT_COMMIT}"' -i rsvpapp-helm-cicd/package/dummy.yaml
             '''
       
             //sh "yq e '.image.tag=${env.GIT_REPO_EMAIL}'   rsvpapp-helm-cicd/packag/dummy.yaml"
