@@ -67,7 +67,7 @@ spec:
               sh "ls -lth"
               sh "yq --version"
               sh "cd package && yq eval --null-input '.image.repository =docker.io/${env.IMAGE_REPO}| .image.tag= ${env.GIT_COMMIT}' -i dummy.yaml"
-              sh "cd package && yq eval --null-input '.image.repository ="${env.IMAGE_REPO}"'| .image.tag= "${env.GIT_COMMIT}"' -i dummy.yaml"
+              sh "cd package && yq eval bool_value=true '.image.repository ="${env.IMAGE_REPO}"'| .image.tag= "${env.GIT_COMMIT}"' -i dummy.yaml"
               sh "cat dummy.yaml"
               }
               sh "yq --version"
