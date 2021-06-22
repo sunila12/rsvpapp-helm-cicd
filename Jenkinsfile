@@ -66,12 +66,10 @@ spec:
               sh "cd ./package" 
               sh "yq --version"
               steps{
-              try{
+              step{
                   sh "cd package && myenv="${env.IMAGE_REPO}" yq eval --null-input '.image.tag = strenv(myenv)' -i dummy.yaml"
                   sh "cat dummy.yaml"
-              }catch (err) {
-                    echo: 'caught error: $err'
-                }
+              }
               }
               sh "yq --version"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
