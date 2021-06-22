@@ -52,10 +52,10 @@ spec:
               sh "mv yq_linux_amd64 /usr/bin/yq"
               sh "cd ./package" 
               sh "yq --version"
-              step {
+            //  step {
                  // sh "cd package && myenv="${env.IMAGE_REPO}" yq eval --null-input '.image.tag = strenv(myenv)' -i dummy.yaml"
                   sh "cat dummy.yaml"
-              }
+              //}
               sh "yq --version"
             sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
           }
