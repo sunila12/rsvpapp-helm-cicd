@@ -65,7 +65,7 @@ spec:
               sh "mv yq_linux_amd64 /usr/bin/yq"
               sh "cd ./package" 
               sh "yq --version"
-              sh "cd package && yq eval '.image.repository =docker.io/${env.IMAGE_REPO}| .image.tag= ${env.GIT_COMMIT}' -i dummy.yaml"
+              sh "cd package && yq eval --null-input '.image.repository =docker.io/${env.IMAGE_REPO}| --null-input .image.tag= ${env.GIT_COMMIT}' -i dummy.yaml"
               sh "cat dummy.yaml"
               }
               sh "yq --version"
