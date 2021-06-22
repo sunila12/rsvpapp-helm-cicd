@@ -53,7 +53,7 @@ spec:
               sh "cd ./package" 
               sh "yq --version"
               step{
-                  sh "cd package && myenv="${env.IMAGE_REPO}" yq eval --null-input '.image.tag = strenv(myenv)' -i dummy.yaml"
+                 // sh "cd package && myenv="${env.IMAGE_REPO}" yq eval --null-input '.image.tag = strenv(myenv)' -i dummy.yaml"
                   sh "cat dummy.yaml"
               }
               sh "yq --version"
