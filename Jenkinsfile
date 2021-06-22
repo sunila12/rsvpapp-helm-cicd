@@ -45,7 +45,8 @@ spec:
         container('tools') {
             sh "git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@${env.GIT_REPO_URL}"
             sh "git config --global user.email ${env.GIT_REPO_EMAIL}"
-          dir("rsvpapp-helm-cicd/package") {
+            sh "echo helo"
+          //dir("rsvpapp-helm-cicd/package") {
             //  sh "git checkout ${env.GIT_REPO_BRANCH}"
             // sh "wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz"
             //  sh "tar xvf yq_linux_amd64.tar.gz"
@@ -60,7 +61,7 @@ spec:
                   //sh "cat dummy.yaml"
               //}
             // sh "yq --version"
-            sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
+           //sh "git commit -am 'Publish new version' && git push || echo 'no changes'"
           }
         }
       }
