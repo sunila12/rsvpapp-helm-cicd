@@ -53,7 +53,7 @@ spec:
             sh "mv yq_linux_amd64 /usr/bin/yq"
             sh "yq --version"
             sh '''#!/bin/bash
-              yq eval '.image.repository = ${env.GIT_REPO_EMAIL}' rsvpapp-helm-cicd/package/values.yaml
+              yq eval '.image.repository = "${env.GIT_REPO_EMAIL}"' rsvpapp-helm-cicd/package/values.yaml
             '''
       
             //sh "yq e '.image.tag=${env.GIT_REPO_EMAIL}'   rsvpapp-helm-cicd/packag/dummy.yaml"
